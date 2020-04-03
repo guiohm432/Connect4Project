@@ -1,0 +1,63 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+    display: grid;
+    height: 500px;
+    width: 500px;
+    border: 5px solid blue;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
+    
+}
+
+.item {
+    border: 1px solid blue;
+    height: 80%;
+    width: 80%;
+    border-radius: 50%;
+    place-self: center;
+}
+
+.item-1 {
+
+}
+
+.redChip {
+    background-image: url(./Images/sticker-poker-jeton-rouge.jpg) ;
+    background-size: cover;
+}
+
+.greenChip {
+    background-image: url(./Images/sticker-poker-jeton-vert.jpg) ;
+    background-size: cover;
+}
+
+section{
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    
+}
+
+.player {
+    height : 100px;
+    width : 200px;
+    border: 1px solid blue;
+    font-size: 2em;
+    text-align: center;
+    line-height: 100px;
+}
+
+.player-1{
+    background-color: darkred;
+}
+
+.player-2{
+    background-color: darkgreen;
+}
