@@ -6,6 +6,7 @@ function main() {
 
 main()
 
+
 //--------------------------------//
 
 // Le if et le else s'execute consecutivement puisque je change ma condition devient fausse dans le if //
@@ -45,6 +46,7 @@ const circlesRowFive = document.querySelectorAll(".row5")
 const circlesRowSix = document.querySelectorAll(".row6")
 const circlesRowSeven = document.querySelectorAll(".row7")
 
+const allCircles = document.querySelectorAll(".item")
 
 function getClickableCircleByColumn(column) {
     let clickableCircle = ""
@@ -122,17 +124,27 @@ function checkConnectFourByRow(row) {
     }
 }
 
+function checkConnectFourByDiagonal() {
+    for (let j = 0; j < 23; j += 7) {
+        for (let i = 0; i < 4; i++) {
+            if ((allCircles[i + j].className.includes("redChip") && allCircles[i + j + 8].className.includes("redChip") && allCircles[i + j + 16].className.includes("redChip") && allCircles[i + j + 24].className.includes("redChip")) || (allCircles[i + j].className.includes("greenChip") && allCircles[i + j + 8].className.includes("greenChip") && allCircles[i + j + 16].className.includes("greenChip") && allCircles[i + j + 24].className.includes("greenChip"))) {
+                return true
+            }
+        }
+    }
+
+}
+
 function checkConnectFour() {
 
     if (checkConnectFourByColumn(circlesColumnOne) || checkConnectFourByColumn(circlesColumnTwo) || checkConnectFourByColumn(circlesColumnThree) || checkConnectFourByColumn(circlesColumnFour) || checkConnectFourByColumn(circlesColumnFive) || checkConnectFourByColumn(circlesColumnSix) || checkConnectFourByColumn(circlesColumnSeven)) {
         return true
     } else if (checkConnectFourByRow(circlesRowOne) || checkConnectFourByRow(circlesRowTwo) || checkConnectFourByRow(circlesRowThree) || checkConnectFourByRow(circlesRowFour) || checkConnectFourByRow(circlesRowFive) || checkConnectFourByRow(circlesRowSix) || checkConnectFourByRow(circlesRowSeven)) {
         return true
+    } else if (checkConnectFourByDiagonal()) {
+        return true
     } else {
         return false
     }
-
-
-
 
 }
