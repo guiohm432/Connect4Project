@@ -29,13 +29,21 @@ function playerTurnText() {
     }
 }
 
-let circlesColumnOne = document.querySelectorAll("div.container :nth-child(7n+1)")
-let circlesColumnTwo = document.querySelectorAll("div.container :nth-child(7n+2)")
-let circlesColumnThree = document.querySelectorAll("div.container :nth-child(7n+3)")
-let circlesColumnFour = document.querySelectorAll("div.container :nth-child(7n+4)")
-let circlesColumnFive = document.querySelectorAll("div.container :nth-child(7n+5)")
-let circlesColumnSix = document.querySelectorAll("div.container :nth-child(7n+6)")
-let circlesColumnSeven = document.querySelectorAll("div.container :nth-child(7n+7)")
+const circlesColumnOne = document.querySelectorAll("div.container :nth-child(7n+1)")
+const circlesColumnTwo = document.querySelectorAll("div.container :nth-child(7n+2)")
+const circlesColumnThree = document.querySelectorAll("div.container :nth-child(7n+3)")
+const circlesColumnFour = document.querySelectorAll("div.container :nth-child(7n+4)")
+const circlesColumnFive = document.querySelectorAll("div.container :nth-child(7n+5)")
+const circlesColumnSix = document.querySelectorAll("div.container :nth-child(7n+6)")
+const circlesColumnSeven = document.querySelectorAll("div.container :nth-child(7n+7)")
+
+const circlesRowOne = document.querySelectorAll(".row1")
+const circlesRowTwo = document.querySelectorAll(".row2")
+const circlesRowThree = document.querySelectorAll(".row3")
+const circlesRowFour = document.querySelectorAll(".row4")
+const circlesRowFive = document.querySelectorAll(".row5")
+const circlesRowSix = document.querySelectorAll(".row6")
+const circlesRowSeven = document.querySelectorAll(".row7")
 
 
 function getClickableCircleByColumn(column) {
@@ -65,11 +73,13 @@ function setClickEventListener(x) {
                 e.target.classList.add("redChip")
                 document.getElementById("player1").classList.remove("player-1")
                 document.getElementById("player2").classList.add("player-2")
+                console.log(checkConnectFour())
                 return 0
             } else if (!e.target.className.includes("redChip")) {
                 e.target.classList.add("greenChip")
                 document.getElementById("player2").classList.remove("player-2")
                 document.getElementById("player1").classList.add("player-1")
+                console.log(checkConnectFour())
                 return 0
             }
         }
@@ -93,5 +103,36 @@ function setClickableCircles() {
     setClickEventListener(x5)
     setClickEventListener(x6)
     setClickEventListener(x7)
+
+}
+
+function checkConnectFourByColumn(column) {
+    for (let i = 0; i < 4; i++) {
+        if ((column[i].className.includes("redChip") && column[i + 1].className.includes("redChip") && column[i + 2].className.includes("redChip") && column[i + 3].className.includes("redChip")) || (column[i].className.includes("greenChip") && column[i + 1].className.includes("greenChip") && column[i + 2].className.includes("greenChip") && column[i + 3].className.includes("greenChip"))) {
+            return true
+        }
+    }
+}
+
+function checkConnectFourByRow(row) {
+    for (let i = 0; i < 4; i++) {
+        if ((row[i].className.includes("redChip") && row[i + 1].className.includes("redChip") && row[i + 2].className.includes("redChip") && row[i + 3].className.includes("redChip")) || (row[i].className.includes("greenChip") && row[i + 1].className.includes("greenChip") && row[i + 2].className.includes("greenChip") && row[i + 3].className.includes("greenChip"))) {
+            return true
+        }
+    }
+}
+
+function checkConnectFour() {
+
+    if (checkConnectFourByColumn(circlesColumnOne) || checkConnectFourByColumn(circlesColumnTwo) || checkConnectFourByColumn(circlesColumnThree) || checkConnectFourByColumn(circlesColumnFour) || checkConnectFourByColumn(circlesColumnFive) || checkConnectFourByColumn(circlesColumnSix) || checkConnectFourByColumn(circlesColumnSeven)) {
+        return true
+    } else if (checkConnectFourByRow(circlesRowOne) || checkConnectFourByRow(circlesRowTwo) || checkConnectFourByRow(circlesRowThree) || checkConnectFourByRow(circlesRowFour) || checkConnectFourByRow(circlesRowFive) || checkConnectFourByRow(circlesRowSix) || checkConnectFourByRow(circlesRowSeven)) {
+        return true
+    } else {
+        return false
+    }
+
+
+
 
 }
