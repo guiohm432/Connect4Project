@@ -5,14 +5,35 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+body {
+    background-image: url(./Images/1976b8a8b6e386f39da1e81bfd5db1ad.jpg);
+    background-size: cover;
+}
+
+.middle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.player-turn {
+    height: 40px;
+    width: 400px;
+    border: 1px solid blue;
+    margin: 20px 0;
+    font-size: 2em;
+    text-align: center;
+}
+
 .container {
+    background-color: darkblue;
     display: grid;
     height: 500px;
     width: 500px;
     border: 5px solid blue;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
-    
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
 }
 
 .item {
@@ -23,41 +44,38 @@
     place-self: center;
 }
 
-.item-1 {
-
-}
+.item-1 {}
 
 .redChip {
-    background-image: url(./Images/sticker-poker-jeton-rouge.jpg) ;
+    background-image: url(./Images/sticker-poker-jeton-rouge.jpg);
     background-size: cover;
 }
 
 .greenChip {
-    background-image: url(./Images/sticker-poker-jeton-vert.jpg) ;
+    background-image: url(./Images/sticker-poker-jeton-vert.jpg);
     background-size: cover;
 }
 
-section{
-    margin-top: 100px;
+section {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    
+
 }
 
 .player {
-    height : 100px;
-    width : 200px;
+    height: 100px;
+    width: 200px;
     border: 1px solid blue;
     font-size: 2em;
     text-align: center;
     line-height: 100px;
 }
 
-.player-1{
+.player-1 {
     background-color: darkred;
 }
 
-.player-2{
+.player-2 {
     background-color: darkgreen;
 }

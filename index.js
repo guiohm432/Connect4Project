@@ -1,14 +1,15 @@
 function main() {
     getFirstPlayer()
-    setInterval(setClickableCircles, 500)
+    setInterval(setClickableCircles, 1000)
+    setInterval(playerTurnText, 500)
 }
 
 main()
 
 //--------------------------------//
 
-// Bug to resolve cannot set onclick on null quand on finit une colonne -->x1 !=0//
-
+// Le if et le else s'execute consecutivement puisque je change ma condition devient fausse dans le if //
+// Bug 2 --> si je clique deux fois de suite sur un jeton il change de couleur//
 
 function getFirstPlayer() {
     let firstPlayer = Math.floor(Math.random() * 2)
@@ -18,6 +19,14 @@ function getFirstPlayer() {
         document.getElementById("player2").classList.add("player-2")
     }
 
+}
+
+function playerTurnText() {
+    if (document.getElementById("player1").className.includes("player-1")) {
+        document.querySelector(".player-turn").textContent = `It's player 1's Turn`
+    } else {
+        document.querySelector(".player-turn").textContent = `It's player 2's Turn`
+    }
 }
 
 let circlesColumnOne = document.querySelectorAll("div.container :nth-child(7n+1)")
@@ -49,6 +58,24 @@ function getClickableCircleByColumn(column) {
     return clickableCircle
 }
 
+function setClickEventListener(x) {
+    if (x != 0) {
+        x.onclick = (e) => {
+            if (document.getElementById("player1").className.includes("player-1") && !e.target.className.includes("greenChip")) {
+                e.target.classList.add("redChip")
+                document.getElementById("player1").classList.remove("player-1")
+                document.getElementById("player2").classList.add("player-2")
+                return 0
+            } else if (!e.target.className.includes("redChip")) {
+                e.target.classList.add("greenChip")
+                document.getElementById("player2").classList.remove("player-2")
+                document.getElementById("player1").classList.add("player-1")
+                return 0
+            }
+        }
+    }
+}
+
 function setClickableCircles() {
     let x1 = getClickableCircleByColumn(circlesColumnOne)
     let x2 = getClickableCircleByColumn(circlesColumnTwo)
@@ -59,83 +86,12 @@ function setClickableCircles() {
     let x7 = getClickableCircleByColumn(circlesColumnSeven)
 
 
+    setClickEventListener(x1)
+    setClickEventListener(x2)
+    setClickEventListener(x3)
+    setClickEventListener(x4)
+    setClickEventListener(x5)
+    setClickEventListener(x6)
+    setClickEventListener(x7)
 
-    x1.onclick = (e) => {
-        if (document.getElementById("player1").className.includes("player-1")) {
-            e.target.classList.add("redChip")
-            document.getElementById("player1").classList.remove("player-1")
-            document.getElementById("player2").classList.add("player-2")
-        } else {
-            e.target.classList.add("greenChip")
-            document.getElementById("player2").classList.remove("player-2")
-            document.getElementById("player1").classList.add("player-1")
-        }
-    }
-    x2.onclick = (e) => {
-        if (document.getElementById("player1").className.includes("player-1")) {
-            e.target.classList.add("redChip")
-            document.getElementById("player1").classList.remove("player-1")
-            document.getElementById("player2").classList.add("player-2")
-        } else {
-            e.target.classList.add("greenChip")
-            document.getElementById("player2").classList.remove("player-2")
-            document.getElementById("player1").classList.add("player-1")
-        }
-    }
-    x3.onclick = (e) => {
-        if (document.getElementById("player1").className.includes("player-1")) {
-            e.target.classList.add("redChip")
-            document.getElementById("player1").classList.remove("player-1")
-            document.getElementById("player2").classList.add("player-2")
-        } else {
-            e.target.classList.add("greenChip")
-            document.getElementById("player2").classList.remove("player-2")
-            document.getElementById("player1").classList.add("player-1")
-        }
-    }
-
-    x4.onclick = (e) => {
-        if (document.getElementById("player1").className.includes("player-1")) {
-            e.target.classList.add("redChip")
-            document.getElementById("player1").classList.remove("player-1")
-            document.getElementById("player2").classList.add("player-2")
-        } else {
-            e.target.classList.add("greenChip")
-            document.getElementById("player2").classList.remove("player-2")
-            document.getElementById("player1").classList.add("player-1")
-        }
-    }
-    x5.onclick = (e) => {
-        if (document.getElementById("player1").className.includes("player-1")) {
-            e.target.classList.add("redChip")
-            document.getElementById("player1").classList.remove("player-1")
-            document.getElementById("player2").classList.add("player-2")
-        } else {
-            e.target.classList.add("greenChip")
-            document.getElementById("player2").classList.remove("player-2")
-            document.getElementById("player1").classList.add("player-1")
-        }
-    }
-    x6.onclick = (e) => {
-        if (document.getElementById("player1").className.includes("player-1")) {
-            e.target.classList.add("redChip")
-            document.getElementById("player1").classList.remove("player-1")
-            document.getElementById("player2").classList.add("player-2")
-        } else {
-            e.target.classList.add("greenChip")
-            document.getElementById("player2").classList.remove("player-2")
-            document.getElementById("player1").classList.add("player-1")
-        }
-    }
-    x7.onclick = (e) => {
-        if (document.getElementById("player1").className.includes("player-1")) {
-            e.target.classList.add("redChip")
-            document.getElementById("player1").classList.remove("player-1")
-            document.getElementById("player2").classList.add("player-2")
-        } else {
-            e.target.classList.add("greenChip")
-            document.getElementById("player2").classList.remove("player-2")
-            document.getElementById("player1").classList.add("player-1")
-        }
-    }
 }
