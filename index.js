@@ -9,8 +9,7 @@ main()
 
 //--------------------------------//
 
-// Le if et le else s'execute consecutivement puisque je change ma condition devient fausse dans le if //
-// Bug 2 --> si je clique deux fois de suite sur un jeton il change de couleur//
+// highlighter les jetons du connect four//
 
 function getFirstPlayer() {
     let firstPlayer = Math.floor(Math.random() * 2)
@@ -125,9 +124,16 @@ function checkConnectFourByRow(row) {
 }
 
 function checkConnectFourByDiagonal() {
-    for (let j = 0; j < 23; j += 7) {
+    for (let j = 0; j < 22; j += 7) {
         for (let i = 0; i < 4; i++) {
             if ((allCircles[i + j].className.includes("redChip") && allCircles[i + j + 8].className.includes("redChip") && allCircles[i + j + 16].className.includes("redChip") && allCircles[i + j + 24].className.includes("redChip")) || (allCircles[i + j].className.includes("greenChip") && allCircles[i + j + 8].className.includes("greenChip") && allCircles[i + j + 16].className.includes("greenChip") && allCircles[i + j + 24].className.includes("greenChip"))) {
+                return true
+            }
+        }
+    }
+    for (let j = 0; j < 22; j += 7) {
+        for (let i = 6; i > 2; i--) {
+            if ((allCircles[i + j].className.includes("redChip") && allCircles[i + j + 6].className.includes("redChip") && allCircles[i + j + 12].className.includes("redChip") && allCircles[i + j + 18].className.includes("redChip")) || (allCircles[i + j].className.includes("greenChip") && allCircles[i + j + 6].className.includes("greenChip") && allCircles[i + j + 12].className.includes("greenChip") && allCircles[i + j + 18].className.includes("greenChip"))) {
                 return true
             }
         }
