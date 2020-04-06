@@ -10,7 +10,48 @@ body {
 
 }
 
-.middle {
+.main-menu {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.button {
+    height: 200px;
+    width: 300px;
+    border: 3px solid darkblue;
+    border-radius: 30px;
+    background-color: lightcyan;
+    font-size: 2em;
+    color: darkblue;
+    text-align: center;
+    line-height: 70px;
+}
+
+.two-players-game {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+.computer-game {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.hidden {
+    display: none;
+}
+
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -27,7 +68,7 @@ body {
     border-radius: 10px;
 }
 
-.container {
+.grid {
     background-color: darkblue;
     display: grid;
     height: 500px;
@@ -47,7 +88,7 @@ body {
 
 }
 
-.redChip {
+.purpleChip {
     background-image: url(./Images/Purple-chip.jpeg);
     background-size: cover;
 }
@@ -57,20 +98,13 @@ body {
     background-size: cover;
 }
 
-section {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-
-}
-
 .player {
     height: 100px;
     width: 200px;
     border: 3px solid darkblue;
     border-radius: 10px;
     font-size: 2em;
-    color: darkgrey;
+    color: darkblue;
     text-align: center;
     line-height: 100px;
 }
@@ -81,6 +115,10 @@ section {
 
 .player-2 {
     background-color: darkgreen;
+}
+
+.winning-background {
+    background-color: darkcyan;
 }
 
 .blinking {
