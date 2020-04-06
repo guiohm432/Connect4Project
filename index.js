@@ -1,5 +1,6 @@
 function main() {
     setInterval(setClickableCircles, 1000)
+    setInterval(setClickableCirclesComputer, 1000)
     setInterval(playerTurnText, 500)
     setInterval(makeWinningPlayerBlink, 500)
 }
@@ -213,5 +214,70 @@ function makeWinningPlayerBlink() {
             document.querySelector(".player-turn").textContent = `Player 1 Wins`
         }
     }
+
+}
+
+
+// COMPUTER MODE //
+
+const computerCirclesColumnTwo = document.querySelectorAll("div.grid.computer :nth-child(7n+2)")
+const computerCirclesColumnOne = document.querySelectorAll("div.grid.computer :nth-child(7n+1)")
+const computerCirclesColumnThree = document.querySelectorAll("div.grid.computer :nth-child(7n+3)")
+const computerCirclesColumnFour = document.querySelectorAll("div.grid.computer :nth-child(7n+4)")
+const computerCirclesColumnFive = document.querySelectorAll("div.grid.computer :nth-child(7n+5)")
+const computerCirclesColumnSix = document.querySelectorAll("div.grid.computer :nth-child(7n+6)")
+const computerCirclesColumnSeven = document.querySelectorAll("div.grid.computer :nth-child(7n+7)")
+
+const computerCirclesRowOne = document.querySelectorAll("div.grid.computer .row1")
+const computerCirclesRowTwo = document.querySelectorAll("div.grid.computer .row2")
+const computerCirclesRowThree = document.querySelectorAll("div.grid.computer .row3")
+const computerCirclesRowFour = document.querySelectorAll("div.grid.computer .row4")
+const computerCirclesRowFive = document.querySelectorAll("div.grid.computer .row5")
+const computerCirclesRowSix = document.querySelectorAll("div.grid.computer .row6")
+const computerCirclesRowSeven = document.querySelectorAll("div.grid.computer .row7")
+
+const computerAllCircles = document.querySelectorAll("div.grid.computer .item")
+
+function setClickEventListenerComputer(x) {
+    if (x != 0) {
+        x.onclick = (e) => {
+            if (document.getElementById("player").className.includes("player-2") && !e.target.className.includes("purpleChip")) {
+                e.target.classList.add("greenChip")
+                document.getElementById("player").classList.remove("player-2")
+                document.getElementById("computer").classList.add("player-1")
+                // checkConnectFour()
+                clickSound.play()
+                return 0
+                // } else if (!e.target.className.includes("purpleChip")) {
+                //     e.target.classList.add("greenChip")
+                //     document.getElementById("player2").classList.remove("player-2")
+                //     document.getElementById("player1").classList.add("player-1")
+                // checkConnectFour()
+                //     clickSound.play()
+                //     return 0
+                // }
+                // }
+            }
+        }
+    }
+}
+
+function setClickableCirclesComputer() {
+    let x1 = getClickableCircleByColumn(computerCirclesColumnOne)
+    let x2 = getClickableCircleByColumn(computerCirclesColumnTwo)
+    let x3 = getClickableCircleByColumn(computerCirclesColumnThree)
+    let x4 = getClickableCircleByColumn(computerCirclesColumnFour)
+    let x5 = getClickableCircleByColumn(computerCirclesColumnFive)
+    let x6 = getClickableCircleByColumn(computerCirclesColumnSix)
+    let x7 = getClickableCircleByColumn(computerCirclesColumnSeven)
+
+
+    setClickEventListenerComputer(x1)
+    setClickEventListenerComputer(x2)
+    setClickEventListenerComputer(x3)
+    setClickEventListenerComputer(x4)
+    setClickEventListenerComputer(x5)
+    setClickEventListenerComputer(x6)
+    setClickEventListenerComputer(x7)
 
 }
