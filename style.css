@@ -6,8 +6,8 @@
 }
 
 body {
-    background-image: url(./Images/1976b8a8b6e386f39da1e81bfd5db1ad.jpg);
-    background-size: cover;
+    background-image: url(./Images/Blue\ wallpaper\ 2.jpeg);
+
 }
 
 .middle {
@@ -19,10 +19,12 @@ body {
 .player-turn {
     height: 40px;
     width: 400px;
-    border: 1px solid blue;
+    background-color: darkblue;
     margin: 20px 0;
     font-size: 2em;
+    color: darkgrey;
     text-align: center;
+    border-radius: 10px;
 }
 
 .container {
@@ -37,17 +39,16 @@ body {
 }
 
 .item {
-    border: 1px solid blue;
+    border: 2px solid blue;
     height: 80%;
     width: 80%;
     border-radius: 50%;
     place-self: center;
+
 }
 
-.item-1 {}
-
 .redChip {
-    background-image: url(./Images/sticker-poker-jeton-rouge.jpg);
+    background-image: url(./Images/Purple-chip.jpeg);
     background-size: cover;
 }
 
@@ -66,16 +67,44 @@ section {
 .player {
     height: 100px;
     width: 200px;
-    border: 1px solid blue;
+    border: 3px solid darkblue;
+    border-radius: 10px;
     font-size: 2em;
+    color: darkgrey;
     text-align: center;
     line-height: 100px;
 }
 
 .player-1 {
-    background-color: darkred;
+    background-color: purple;
 }
 
 .player-2 {
     background-color: darkgreen;
+}
+
+.blinking {
+    animation: blinkingChip 0.8s infinite;
+}
+
+@keyframes blinkingChip {
+    0% {
+        border: 4px solid greenyellow;
+    }
+
+    25% {
+        border: 4px solid purple;
+    }
+
+    50% {
+        border: 4px solid greenyellow;
+    }
+
+    75% {
+        border: 4px solid purple;
+    }
+
+    100% {
+        border: 4px solid greenyellow;
+    }
 }

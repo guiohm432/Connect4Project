@@ -1,3 +1,5 @@
+let clickSound = document.getElementsByTagName("audio")[1];
+
 function main() {
     getFirstPlayer()
     setInterval(setClickableCircles, 1000)
@@ -9,7 +11,7 @@ main()
 
 //--------------------------------//
 
-// highlighter les jetons du connect four//
+
 
 function getFirstPlayer() {
     let firstPlayer = Math.floor(Math.random() * 2)
@@ -74,13 +76,15 @@ function setClickEventListener(x) {
                 e.target.classList.add("redChip")
                 document.getElementById("player1").classList.remove("player-1")
                 document.getElementById("player2").classList.add("player-2")
-                console.log(checkConnectFour())
+                checkConnectFour()
+                clickSound.play()
                 return 0
             } else if (!e.target.className.includes("redChip")) {
                 e.target.classList.add("greenChip")
                 document.getElementById("player2").classList.remove("player-2")
                 document.getElementById("player1").classList.add("player-1")
-                console.log(checkConnectFour())
+                checkConnectFour()
+                clickSound.play()
                 return 0
             }
         }
@@ -110,6 +114,10 @@ function setClickableCircles() {
 function checkConnectFourByColumn(column) {
     for (let i = 0; i < 4; i++) {
         if ((column[i].className.includes("redChip") && column[i + 1].className.includes("redChip") && column[i + 2].className.includes("redChip") && column[i + 3].className.includes("redChip")) || (column[i].className.includes("greenChip") && column[i + 1].className.includes("greenChip") && column[i + 2].className.includes("greenChip") && column[i + 3].className.includes("greenChip"))) {
+            column[i].classList.add("blinking")
+            column[i + 1].classList.add("blinking")
+            column[i + 2].classList.add("blinking")
+            column[i + 3].classList.add("blinking")
             return true
         }
     }
@@ -118,6 +126,10 @@ function checkConnectFourByColumn(column) {
 function checkConnectFourByRow(row) {
     for (let i = 0; i < 4; i++) {
         if ((row[i].className.includes("redChip") && row[i + 1].className.includes("redChip") && row[i + 2].className.includes("redChip") && row[i + 3].className.includes("redChip")) || (row[i].className.includes("greenChip") && row[i + 1].className.includes("greenChip") && row[i + 2].className.includes("greenChip") && row[i + 3].className.includes("greenChip"))) {
+            row[i].classList.add("blinking")
+            row[i + 1].classList.add("blinking")
+            row[i + 2].classList.add("blinking")
+            row[i + 3].classList.add("blinking")
             return true
         }
     }
@@ -127,6 +139,10 @@ function checkConnectFourByDiagonal() {
     for (let j = 0; j < 22; j += 7) {
         for (let i = 0; i < 4; i++) {
             if ((allCircles[i + j].className.includes("redChip") && allCircles[i + j + 8].className.includes("redChip") && allCircles[i + j + 16].className.includes("redChip") && allCircles[i + j + 24].className.includes("redChip")) || (allCircles[i + j].className.includes("greenChip") && allCircles[i + j + 8].className.includes("greenChip") && allCircles[i + j + 16].className.includes("greenChip") && allCircles[i + j + 24].className.includes("greenChip"))) {
+                allCircles[i + j].classList.add("blinking")
+                allCircles[i + j + 8].classList.add("blinking")
+                allCircles[i + j + 16].classList.add("blinking")
+                allCircles[i + j + 24].classList.add("blinking")
                 return true
             }
         }
@@ -134,6 +150,10 @@ function checkConnectFourByDiagonal() {
     for (let j = 0; j < 22; j += 7) {
         for (let i = 6; i > 2; i--) {
             if ((allCircles[i + j].className.includes("redChip") && allCircles[i + j + 6].className.includes("redChip") && allCircles[i + j + 12].className.includes("redChip") && allCircles[i + j + 18].className.includes("redChip")) || (allCircles[i + j].className.includes("greenChip") && allCircles[i + j + 6].className.includes("greenChip") && allCircles[i + j + 12].className.includes("greenChip") && allCircles[i + j + 18].className.includes("greenChip"))) {
+                allCircles[i + j].classList.add("blinking")
+                allCircles[i + j + 6].classList.add("blinking")
+                allCircles[i + j + 12].classList.add("blinking")
+                allCircles[i + j + 18].classList.add("blinking")
                 return true
             }
         }
