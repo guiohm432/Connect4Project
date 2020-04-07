@@ -2,12 +2,36 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: superMarioFont;
 }
 
 body {
     background-image: url(./Images/Blue\ wallpaper\ 2.jpeg);
 
+}
+
+@font-face {
+    font-family: superMarioFont;
+    src: url(./Font/SuperMario256.ttf);
+}
+
+h1 {
+    display: flex;
+}
+
+h1 div {
+    font-family: superMarioFont;
+    font-size: 5em;
+    margin-top: 25px;
+
+}
+
+.green {
+    color: green;
+}
+
+.purple {
+    color: purple;
 }
 
 .main-menu {
@@ -31,7 +55,8 @@ body {
     line-height: 70px;
 }
 
-.chips-div, .button-div {
+.chips-div,
+.button-div {
     display: flex;
     justify-content: space-around;
     width: 100vw;
@@ -66,10 +91,10 @@ body {
 
 .player-turn {
     height: 40px;
-    width: 400px;
-    background-color: darkblue;
-    margin: 20px 0;
-    font-size: 2em;
+    width: 600px;
+    background-color: transparent;
+    margin-bottom: 15px;
+    font-size: 2.5em;
     color: darkgrey;
     text-align: center;
     border-radius: 10px;
@@ -87,7 +112,6 @@ body {
 }
 
 .main-item {
-    border: 2px solid blue;
     height: 100px;
     width: 100px;
     border-radius: 50%;

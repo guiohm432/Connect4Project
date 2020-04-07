@@ -222,9 +222,12 @@ function checkConnectFour() {
 
 }
 
+let applause = document.getElementsByTagName("audio")[2];
+
 function makeWinningPlayerBlink() {
 
     if (checkConnectFour()) {
+        applause.play()
         if (document.getElementById("player1").className.includes("player-1")) {
             document.getElementById("player2").classList.add("blinking")
             document.getElementById("player2").classList.add("winning-background")
