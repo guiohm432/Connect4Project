@@ -1,5 +1,5 @@
 function main() {
-    setInterval(setClickableCircles, 1000)
+    setInterval(setClickableCircles, 500)
     setInterval(setClickableCirclesComputer, 1000)
     setInterval(playerTurnText, 500)
     setInterval(makeWinningPlayerBlink, 500)
@@ -20,6 +20,7 @@ computerButton.onclick = (e) => {
     let firstPlayer = Math.floor(Math.random() * 2)
     if (firstPlayer) {
         document.getElementById("computer").classList.add("player-1")
+        timeoutID2 = window.setTimeout(makeComputerPlay, 1000)
     } else {
         document.getElementById("player").classList.add("player-2")
     }
@@ -103,7 +104,7 @@ function setClickEventListener(x) {
                 checkConnectFour()
                 clickSound.play()
                 return 0
-            } else if (!e.target.className.includes("purpleChip")) {
+            } else if (document.getElementById("player2").className.includes("player-2") && !e.target.className.includes("purpleChip")) {
                 e.target.classList.add("greenChip")
                 document.getElementById("player2").classList.remove("player-2")
                 document.getElementById("player1").classList.add("player-1")
@@ -182,14 +183,36 @@ function checkConnectFourByDiagonal() {
             }
         }
     }
+    for (let j = 0; j < 22; j += 7) {
+        for (let i = 0; i < 4; i++) {
+            if ((computerAllCircles[i + j].className.includes("purpleChip") && computerAllCircles[i + j + 8].className.includes("purpleChip") && computerAllCircles[i + j + 16].className.includes("purpleChip") && computerAllCircles[i + j + 24].className.includes("purpleChip")) || (computerAllCircles[i + j].className.includes("greenChip") && computerAllCircles[i + j + 8].className.includes("greenChip") && computerAllCircles[i + j + 16].className.includes("greenChip") && computerAllCircles[i + j + 24].className.includes("greenChip"))) {
+                computerAllCircles[i + j].classList.add("blinking")
+                computerAllCircles[i + j + 8].classList.add("blinking")
+                computerAllCircles[i + j + 16].classList.add("blinking")
+                computerAllCircles[i + j + 24].classList.add("blinking")
+                return true
+            }
+        }
+    }
+    for (let j = 0; j < 22; j += 7) {
+        for (let i = 6; i > 2; i--) {
+            if ((computerAllCircles[i + j].className.includes("purpleChip") && computerAllCircles[i + j + 6].className.includes("purpleChip") && computerAllCircles[i + j + 12].className.includes("purpleChip") && computerAllCircles[i + j + 18].className.includes("purpleChip")) || (computerAllCircles[i + j].className.includes("greenChip") && computerAllCircles[i + j + 6].className.includes("greenChip") && computerAllCircles[i + j + 12].className.includes("greenChip") && computerAllCircles[i + j + 18].className.includes("greenChip"))) {
+                computerAllCircles[i + j].classList.add("blinking")
+                computerAllCircles[i + j + 6].classList.add("blinking")
+                computerAllCircles[i + j + 12].classList.add("blinking")
+                computerAllCircles[i + j + 18].classList.add("blinking")
+                return true
+            }
+        }
+    }
 
 }
 
 function checkConnectFour() {
 
-    if (checkConnectFourByColumn(circlesColumnOne) || checkConnectFourByColumn(circlesColumnTwo) || checkConnectFourByColumn(circlesColumnThree) || checkConnectFourByColumn(circlesColumnFour) || checkConnectFourByColumn(circlesColumnFive) || checkConnectFourByColumn(circlesColumnSix) || checkConnectFourByColumn(circlesColumnSeven)) {
+    if (checkConnectFourByColumn(circlesColumnOne) || checkConnectFourByColumn(circlesColumnTwo) || checkConnectFourByColumn(circlesColumnThree) || checkConnectFourByColumn(circlesColumnFour) || checkConnectFourByColumn(circlesColumnFive) || checkConnectFourByColumn(circlesColumnSix) || checkConnectFourByColumn(circlesColumnSeven) || checkConnectFourByColumn(computerCirclesColumnOne) || checkConnectFourByColumn(computerCirclesColumnTwo) || checkConnectFourByColumn(computerCirclesColumnThree) || checkConnectFourByColumn(computerCirclesColumnFour) || checkConnectFourByColumn(computerCirclesColumnFive) || checkConnectFourByColumn(computerCirclesColumnSix) || checkConnectFourByColumn(computerCirclesColumnSeven)) {
         return true
-    } else if (checkConnectFourByRow(circlesRowOne) || checkConnectFourByRow(circlesRowTwo) || checkConnectFourByRow(circlesRowThree) || checkConnectFourByRow(circlesRowFour) || checkConnectFourByRow(circlesRowFive) || checkConnectFourByRow(circlesRowSix) || checkConnectFourByRow(circlesRowSeven)) {
+    } else if (checkConnectFourByRow(circlesRowOne) || checkConnectFourByRow(circlesRowTwo) || checkConnectFourByRow(circlesRowThree) || checkConnectFourByRow(circlesRowFour) || checkConnectFourByRow(circlesRowFive) || checkConnectFourByRow(circlesRowSix) || checkConnectFourByRow(circlesRowSeven) || checkConnectFourByRow(computerCirclesRowOne) || checkConnectFourByRow(computerCirclesRowTwo) || checkConnectFourByRow(computerCirclesRowThree) || checkConnectFourByRow(computerCirclesRowFour) || checkConnectFourByRow(computerCirclesRowFive) || checkConnectFourByRow(computerCirclesRowSix) || checkConnectFourByRow(computerCirclesRowSeven)) {
         return true
     } else if (checkConnectFourByDiagonal()) {
         return true
@@ -212,6 +235,16 @@ function makeWinningPlayerBlink() {
             document.getElementById("player1").classList.add("winning-background")
             document.getElementById("player2").classList.remove("player-2")
             document.querySelector(".player-turn").textContent = `Player 1 Wins`
+        } else if (document.getElementById("computer").className.includes("player-1")) {
+            document.getElementById("player").classList.add("blinking")
+            document.getElementById("player").classList.add("winning-background")
+            document.getElementById("computer").classList.remove("player-1")
+            document.querySelector(".player-turn.computer").textContent = `Player Wins`
+        } else if (document.getElementById("player").className.includes("player-2")) {
+            document.getElementById("computer").classList.add("blinking")
+            document.getElementById("computer").classList.add("winning-background")
+            document.getElementById("player").classList.remove("player-2")
+            document.querySelector(".player-turn.computer").textContent = `Computer Wins`
         }
     }
 
@@ -238,6 +271,52 @@ const computerCirclesRowSeven = document.querySelectorAll("div.grid.computer .ro
 
 const computerAllCircles = document.querySelectorAll("div.grid.computer .item")
 
+function makeComputerPlay() {
+    let x1 = getClickableCircleByColumn(computerCirclesColumnOne)
+    let x2 = getClickableCircleByColumn(computerCirclesColumnTwo)
+    let x3 = getClickableCircleByColumn(computerCirclesColumnThree)
+    let x4 = getClickableCircleByColumn(computerCirclesColumnFour)
+    let x5 = getClickableCircleByColumn(computerCirclesColumnFive)
+    let x6 = getClickableCircleByColumn(computerCirclesColumnSix)
+    let x7 = getClickableCircleByColumn(computerCirclesColumnSeven)
+
+    let RandomInteger = Math.floor(Math.random() * 7)
+
+    if (!checkConnectFour()) {
+        switch (RandomInteger) {
+            case 0:
+                x1.classList.add("purpleChip")
+                break;
+            case 1:
+                x2.classList.add("purpleChip")
+                break;
+            case 2:
+                x3.classList.add("purpleChip")
+                break;
+            case 3:
+                x4.classList.add("purpleChip")
+                break;
+            case 4:
+                x5.classList.add("purpleChip")
+                break;
+            case 5:
+                x6.classList.add("purpleChip")
+
+                break;
+            case 6:
+                x7.classList.add("purpleChip")
+                break;
+
+            default:
+                break;
+        }
+        document.getElementById("computer").classList.remove("player-1")
+        document.getElementById("player").classList.add("player-2")
+        clickSound.play()
+        checkConnectFour()
+    }
+}
+
 function setClickEventListenerComputer(x) {
     if (x != 0) {
         x.onclick = (e) => {
@@ -245,18 +324,11 @@ function setClickEventListenerComputer(x) {
                 e.target.classList.add("greenChip")
                 document.getElementById("player").classList.remove("player-2")
                 document.getElementById("computer").classList.add("player-1")
-                // checkConnectFour()
+                checkConnectFour()
                 clickSound.play()
+                timeoutID = window.setTimeout(makeComputerPlay, 1000)
                 return 0
-                // } else if (!e.target.className.includes("purpleChip")) {
-                //     e.target.classList.add("greenChip")
-                //     document.getElementById("player2").classList.remove("player-2")
-                //     document.getElementById("player1").classList.add("player-1")
-                // checkConnectFour()
-                //     clickSound.play()
-                //     return 0
-                // }
-                // }
+
             }
         }
     }
