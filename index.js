@@ -133,10 +133,18 @@ function whichColumnIndex(circle) {
     }
 }
 
-function makeChipFall(columnIndex, chipColor) {
+let circles = 0
+
+function makeChipFall(columnIndex, chipColor, gameMode) {
+
+    if (gameMode === "computer") {
+        circles = computerAllCircles
+    } else {
+        circles = allCircles
+    }
     timeoutID3 = window.setTimeout(() => {
-        if (!allCircles[0 + columnIndex].className.includes("greenChip") && !allCircles[0 + columnIndex].className.includes("purpleChip")) {
-            allCircles[0 + columnIndex].classList.add(`${chipColor}`)
+        if (!circles[0 + columnIndex].className.includes("greenChip") && !circles[0 + columnIndex].className.includes("purpleChip")) {
+            circles[0 + columnIndex].classList.add(`${chipColor}`)
         } else {
             clickSound.play()
         }
@@ -144,49 +152,49 @@ function makeChipFall(columnIndex, chipColor) {
 
 
     timeoutID4 = window.setTimeout(() => {
-        if (!allCircles[7 + columnIndex].className.includes("greenChip") && !allCircles[7 + columnIndex].className.includes("purpleChip")) {
-            allCircles[0 + columnIndex].classList.remove(`${chipColor}`);
-            allCircles[7 + columnIndex].classList.add(`${chipColor}`)
+        if (!circles[7 + columnIndex].className.includes("greenChip") && !circles[7 + columnIndex].className.includes("purpleChip")) {
+            circles[0 + columnIndex].classList.remove(`${chipColor}`);
+            circles[7 + columnIndex].classList.add(`${chipColor}`)
         } else {
             clickSound.play()
         }
     }, 200)
     timeoutID5 = window.setTimeout(() => {
-        if (!allCircles[14 + columnIndex].className.includes("greenChip") && !allCircles[14 + columnIndex].className.includes("purpleChip")) {
-            allCircles[7 + columnIndex].classList.remove(`${chipColor}`);
-            allCircles[14 + columnIndex].classList.add(`${chipColor}`)
+        if (!circles[14 + columnIndex].className.includes("greenChip") && !circles[14 + columnIndex].className.includes("purpleChip")) {
+            circles[7 + columnIndex].classList.remove(`${chipColor}`);
+            circles[14 + columnIndex].classList.add(`${chipColor}`)
         } else {
             clickSound.play()
         }
     }, 300)
     timeoutID6 = window.setTimeout(() => {
-        if (!allCircles[21 + columnIndex].className.includes("greenChip") && !allCircles[21 + columnIndex].className.includes("purpleChip")) {
-            allCircles[14 + columnIndex].classList.remove(`${chipColor}`);
-            allCircles[21 + columnIndex].classList.add(`${chipColor}`)
+        if (!circles[21 + columnIndex].className.includes("greenChip") && !circles[21 + columnIndex].className.includes("purpleChip")) {
+            circles[14 + columnIndex].classList.remove(`${chipColor}`);
+            circles[21 + columnIndex].classList.add(`${chipColor}`)
         } else {
             clickSound.play()
         }
     }, 400)
     timeoutID7 = window.setTimeout(() => {
-        if (!allCircles[28 + columnIndex].className.includes("greenChip") && !allCircles[28 + columnIndex].className.includes("purpleChip")) {
-            allCircles[21 + columnIndex].classList.remove(`${chipColor}`);
-            allCircles[28 + columnIndex].classList.add(`${chipColor}`)
+        if (!circles[28 + columnIndex].className.includes("greenChip") && !circles[28 + columnIndex].className.includes("purpleChip")) {
+            circles[21 + columnIndex].classList.remove(`${chipColor}`);
+            circles[28 + columnIndex].classList.add(`${chipColor}`)
         } else {
             clickSound.play()
         }
     }, 500)
     timeoutID8 = window.setTimeout(() => {
-        if (!allCircles[35 + columnIndex].className.includes("greenChip") && !allCircles[35 + columnIndex].className.includes("purpleChip")) {
-            allCircles[28 + columnIndex].classList.remove(`${chipColor}`);
-            allCircles[35 + columnIndex].classList.add(`${chipColor}`)
+        if (!circles[35 + columnIndex].className.includes("greenChip") && !circles[35 + columnIndex].className.includes("purpleChip")) {
+            circles[28 + columnIndex].classList.remove(`${chipColor}`);
+            circles[35 + columnIndex].classList.add(`${chipColor}`)
         } else {
             clickSound.play()
         }
     }, 600)
     timeoutID9 = window.setTimeout(() => {
-        if (!allCircles[42 + columnIndex].className.includes("greenChip") && !allCircles[42 + columnIndex].className.includes("purpleChip")) {
-            allCircles[35 + columnIndex].classList.remove(`${chipColor}`);
-            allCircles[42 + columnIndex].classList.add(`${chipColor}`)
+        if (!circles[42 + columnIndex].className.includes("greenChip") && !circles[42 + columnIndex].className.includes("purpleChip")) {
+            circles[35 + columnIndex].classList.remove(`${chipColor}`);
+            circles[42 + columnIndex].classList.add(`${chipColor}`)
             clickSound.play()
         } else {
             clickSound.play()
@@ -367,33 +375,25 @@ function makeComputerPlay() {
     if (!checkConnectFour()) {
         switch (RandomInteger) {
             case 0:
-                x1.classList.add("purpleChip")
-                makeChipFall(0, "purpleChip")
+                makeChipFall(0, "purpleChip", "computer")
                 break;
             case 1:
-                x2.classList.add("purpleChip")
-                makeChipFall(1, "purpleChip")
+                makeChipFall(1, "purpleChip", "computer")
                 break;
             case 2:
-                x3.classList.add("purpleChip")
-                makeChipFall(2, "purpleChip")
+                makeChipFall(2, "purpleChip", "computer")
                 break;
             case 3:
-                x4.classList.add("purpleChip")
-                makeChipFall(3, "purpleChip")
+                makeChipFall(3, "purpleChip", "computer")
                 break;
             case 4:
-                x5.classList.add("purpleChip")
-                makeChipFall(4, "purpleChip")
+                makeChipFall(4, "purpleChip", "computer")
                 break;
             case 5:
-                x6.classList.add("purpleChip")
-                makeChipFall(5, "purpleChip")
-
+                makeChipFall(5, "purpleChip", "computer")
                 break;
             case 6:
-                x7.classList.add("purpleChip")
-                makeChipFall(6, "purpleChip")
+                makeChipFall(6, "purpleChip", "computer")
                 break;
 
             default:
@@ -401,7 +401,6 @@ function makeComputerPlay() {
         }
         document.getElementById("computer").classList.remove("player-1")
         document.getElementById("player").classList.add("player-2")
-        clickSound.play()
         checkConnectFour()
     }
 }
@@ -410,11 +409,10 @@ function setClickEventListenerComputer(x) {
     if (x != 0) {
         x.onclick = (e) => {
             if (document.getElementById("player").className.includes("player-2") && !e.target.className.includes("purpleChip")) {
-                e.target.classList.add("greenChip")
+                makeChipFall(whichColumnIndex(e.target), "greenChip", "computer")
                 document.getElementById("player").classList.remove("player-2")
                 document.getElementById("computer").classList.add("player-1")
                 checkConnectFour()
-                clickSound.play()
                 timeoutID = window.setTimeout(makeComputerPlay, 1000)
                 return 0
 
