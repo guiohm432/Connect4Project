@@ -6,13 +6,13 @@
 }
 
 body {
-    background-image: url(./Images/Blue\ wallpaper\ 2.jpeg);
+    background-image: url("./Images/Blue\ wallpaper\ 2.jpeg");
 
 }
 
 @font-face {
     font-family: superMarioFont;
-    src: url(./Font/SuperMario256.ttf);
+    src: url("./Font/SuperMario256.ttf");
 }
 
 h1 {
@@ -128,12 +128,12 @@ h1 div {
 }
 
 .purpleChip {
-    background-image: url(./Images/Purple-chip.jpeg);
+    background-image: url("./Images/Purple-chip.jpeg");
     background-size: cover;
 }
 
 .greenChip {
-    background-image: url(./Images/sticker-poker-jeton-vert.jpg);
+    background-image: url("./Images/sticker-poker-jeton-vert.jpg");
     background-size: cover;
 }
 
