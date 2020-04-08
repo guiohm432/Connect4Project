@@ -3,10 +3,13 @@ function main() {
     setInterval(setClickableCirclesComputer, 1000)
     setInterval(playerTurnText, 500)
     setInterval(makeWinningPlayerBlink, 500)
+    setInterval(checkConnectThree, 1000)
+
+
 }
 
 
-main()
+// main()
 
 
 //--------------------------------//
@@ -54,21 +57,21 @@ function playerTurnText() {
 
 }
 
-const circlesColumnOne = document.querySelectorAll("div.grid :nth-child(7n+1)")
-const circlesColumnTwo = document.querySelectorAll("div.grid :nth-child(7n+2)")
-const circlesColumnThree = document.querySelectorAll("div.grid :nth-child(7n+3)")
-const circlesColumnFour = document.querySelectorAll("div.grid :nth-child(7n+4)")
-const circlesColumnFive = document.querySelectorAll("div.grid :nth-child(7n+5)")
-const circlesColumnSix = document.querySelectorAll("div.grid :nth-child(7n+6)")
-const circlesColumnSeven = document.querySelectorAll("div.grid :nth-child(7n+7)")
+const circlesColumnOne = document.querySelectorAll("div.grid.two-players :nth-child(7n+1)")
+const circlesColumnTwo = document.querySelectorAll("div.grid.two-players :nth-child(7n+2)")
+const circlesColumnThree = document.querySelectorAll("div.grid.two-players :nth-child(7n+3)")
+const circlesColumnFour = document.querySelectorAll("div.grid.two-players :nth-child(7n+4)")
+const circlesColumnFive = document.querySelectorAll("div.grid.two-players :nth-child(7n+5)")
+const circlesColumnSix = document.querySelectorAll("div.grid.two-players :nth-child(7n+6)")
+const circlesColumnSeven = document.querySelectorAll("div.grid.two-players :nth-child(7n+7)")
 
-const circlesRowOne = document.querySelectorAll(".row1")
-const circlesRowTwo = document.querySelectorAll(".row2")
-const circlesRowThree = document.querySelectorAll(".row3")
-const circlesRowFour = document.querySelectorAll(".row4")
-const circlesRowFive = document.querySelectorAll(".row5")
-const circlesRowSix = document.querySelectorAll(".row6")
-const circlesRowSeven = document.querySelectorAll(".row7")
+const circlesRowOne = document.querySelectorAll(".two-players .row1")
+const circlesRowTwo = document.querySelectorAll(".two-players .row2")
+const circlesRowThree = document.querySelectorAll(".two-players .row3")
+const circlesRowFour = document.querySelectorAll(".two-players .row4")
+const circlesRowFive = document.querySelectorAll(".two-players .row5")
+const circlesRowSix = document.querySelectorAll(".two-players .row6")
+const circlesRowSeven = document.querySelectorAll(".two-players .row7")
 
 const allCircles = document.querySelectorAll(".item")
 
@@ -92,7 +95,7 @@ function getClickableCircleByColumn(column) {
     return clickableCircle
 }
 
-let clickSound = document.getElementsByTagName("audio")[1];
+let clickSound = document.getElementsByTagName("audio")[0];
 
 function setClickEventListener(x) {
     if (x != 0) {
@@ -309,7 +312,7 @@ function checkConnectFour() {
 
 }
 
-let applause = document.getElementsByTagName("audio")[2];
+let applause = document.getElementsByTagName("audio")[1];
 
 function makeWinningPlayerBlink() {
 
@@ -343,6 +346,8 @@ function makeWinningPlayerBlink() {
 
 // COMPUTER MODE //
 
+
+
 const computerCirclesColumnTwo = document.querySelectorAll("div.grid.computer :nth-child(7n+2)")
 const computerCirclesColumnOne = document.querySelectorAll("div.grid.computer :nth-child(7n+1)")
 const computerCirclesColumnThree = document.querySelectorAll("div.grid.computer :nth-child(7n+3)")
@@ -370,7 +375,8 @@ function makeComputerPlay() {
     let x6 = getClickableCircleByColumn(computerCirclesColumnSix)
     let x7 = getClickableCircleByColumn(computerCirclesColumnSeven)
 
-    let RandomInteger = Math.floor(Math.random() * 7)
+    if (checkConnectThree().length === 0){
+        let RandomInteger = Math.floor(Math.random() * 7)
 
     if (!checkConnectFour()) {
         switch (RandomInteger) {
@@ -403,6 +409,12 @@ function makeComputerPlay() {
         document.getElementById("player").classList.add("player-2")
         checkConnectFour()
     }
+    } else {
+        let RandomInteger = Math.floor(Math.random() * checkConnectThree().length)
+
+    }
+
+        
 }
 
 function setClickEventListenerComputer(x) {
@@ -439,5 +451,96 @@ function setClickableCirclesComputer() {
     setClickEventListenerComputer(x5)
     setClickEventListenerComputer(x6)
     setClickEventListenerComputer(x7)
+
+}
+
+// MAKE COMPUTER A BIT MOR CLEVER //
+
+function checkConnectThree() {
+    let possibleConnectFourArray = [checkConnectThreeByColumn(circlesColumnOne), checkConnectThreeByColumn(circlesColumnTwo), checkConnectThreeByColumn(circlesColumnThree), checkConnectThreeByColumn(circlesColumnFour), checkConnectThreeByColumn(circlesColumnFive), checkConnectThreeByColumn(circlesColumnSix), checkConnectThreeByColumn(circlesColumnSeven),
+        checkConnectThreeByRow(circlesRowOne), checkConnectThreeByRow(circlesRowTwo), checkConnectThreeByRow(circlesRowThree), checkConnectThreeByRow(circlesRowFour), checkConnectThreeByRow(circlesRowFive), checkConnectThreeByRow(circlesRowSix), checkConnectThreeByRow(circlesRowSeven), checkConnectThreeByDiagonal()
+    ]
+    for (let i = 0; i < possibleConnectFourArray.length; i++) {
+        if (possibleConnectFourArray[i] === "") {
+            possibleConnectFourArray.splice(i, 1)
+            i--
+        }
+    }
+    return possibleConnectFourArray
+}
+
+function checkConnectThreeByColumn(column) {
+    let result = ""
+    for (let i = 6; i > 2; i--) {
+        if ((column[i].className.includes("purpleChip") && column[i - 1].className.includes("purpleChip") && column[i - 2].className.includes("purpleChip")) || (column[i].className.includes("greenChip") && column[i - 1].className.includes("greenChip") && column[i - 2].className.includes("greenChip"))) {
+            result = column[i - 3]
+        }
+    }
+    return result
+
+}
+
+
+function checkConnectThreeByRow(row) {
+    let result = ""
+    for (let i = 0; i < 5; i++) {
+        if ((row[i].className.includes("purpleChip") && row[i + 1].className.includes("purpleChip") && row[i + 2].className.includes("purpleChip")) || (row[i].className.includes("greenChip") && row[i + 1].className.includes("greenChip") && row[i + 2].className.includes("greenChip"))) {
+            if (i === 0) {
+                if (!row[i + 3].className.includes("greenChip") && !row[i + 3].className.includes("purpleChip")) {
+                    result = row[i + 3]
+                }
+
+            } else if (i === 4) {
+                if (!row[i - 1].className.includes("greenChip") && !row[i - 1].className.includes("purpleChip")) {
+                    result = row[i - 1]
+                }
+            } else {
+                /* Since the computer makes random choices in the final possibleConnectFourArray,
+                 i'll push only one value here even in the case of multiple possibilities, 
+                 because in this case computer looses anyway */
+
+                if (!row[i - 1].className.includes("greenChip") && !row[i - 1].className.includes("purpleChip")) {
+                    result = row[i - 1]
+                } else if (!row[i + 3].className.includes("greenChip") && !row[i + 3].className.includes("purpleChip")) {
+                    result = row[i + 3]
+                }
+            }
+        }
+    }
+    return result
+
+}
+
+
+function checkConnectThreeByDiagonal() {
+    let result = ""
+    let clickableCircleArray = [getClickableCircleByColumn(circlesColumnOne), getClickableCircleByColumn(circlesColumnTwo), getClickableCircleByColumn(circlesColumnThree), getClickableCircleByColumn(circlesColumnFour), getClickableCircleByColumn(circlesColumnFive), getClickableCircleByColumn(circlesColumnSix), getClickableCircleByColumn(circlesColumnSeven)]
+    for (let j = 0; j < 29; j += 7) {
+        for (let i = 0; i < 5; i++) {
+            if ((allCircles[i + j].className.includes("purpleChip") && allCircles[i + j + 8].className.includes("purpleChip") && allCircles[i + j + 16].className.includes("purpleChip")) || (allCircles[i + j].className.includes("greenChip") && allCircles[i + j + 8].className.includes("greenChip") && allCircles[i + j + 16].className.includes("greenChip"))) {
+                /* verifier que le result est cliquable
+                C'est à dire qu'il est un inclus dans le 
+                clickableCircleArray */
+                if (clickableCircleArray.includes(allCircles[i + j - 8])) {
+                    result = allCircles[i + j - 8]
+                } else if (clickableCircleArray.includes(allCircles[i + j + 24])) {
+                    result = allCircles[i + j + 24]
+                }
+            }
+        }
+    }
+    for (let j = 0; j < 29; j += 7) {
+        for (let i = 6; i > 1; i--) {
+            if ((allCircles[i + j].className.includes("purpleChip") && allCircles[i + j + 6].className.includes("purpleChip") && allCircles[i + j + 12].className.includes("purpleChip")) || (allCircles[i + j].className.includes("greenChip") && allCircles[i + j + 6].className.includes("greenChip") && allCircles[i + j + 12].className.includes("greenChip"))) {
+
+                if (clickableCircleArray.includes(allCircles[i + j - 6])) {
+                    result = allCircles[i + j - 6]
+                } else if (clickableCircleArray.includes(allCircles[i + j + 18])) {
+                    result = allCircles[i + j + 18]
+                }
+            }
+        }
+    }
+    return result
 
 }
