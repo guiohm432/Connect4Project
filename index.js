@@ -2,8 +2,7 @@ function main() {
     setInterval(setClickableCircles, 500)
     setInterval(setClickableCirclesComputer, 1000)
     setInterval(playerTurnText, 500)
-    setInterval(makeWinningPlayerBlink, 500)
-    setInterval(checkConnectThree, 1000)
+    setInterval(makeWinningPlayerBlink, 1000)
 
 
 }
@@ -104,13 +103,13 @@ function setClickEventListener(x) {
                 makeChipFall(whichColumnIndex(e.target), "purpleChip")
                 document.getElementById("player1").classList.remove("player-1")
                 document.getElementById("player2").classList.add("player-2")
-                checkConnectFour()
+                // checkConnectFour()
                 return 0
             } else if (document.getElementById("player2").className.includes("player-2") && !e.target.className.includes("purpleChip")) {
                 makeChipFall(whichColumnIndex(e.target), "greenChip")
                 document.getElementById("player2").classList.remove("player-2")
                 document.getElementById("player1").classList.add("player-1")
-                checkConnectFour()
+                // checkConnectFour()
 
                 return 0
             }
@@ -366,6 +365,8 @@ const computerCirclesRowSeven = document.querySelectorAll("div.grid.computer .ro
 
 const computerAllCircles = document.querySelectorAll("div.grid.computer .item")
 
+
+
 function makeComputerPlay() {
     let x1 = getClickableCircleByColumn(computerCirclesColumnOne)
     let x2 = getClickableCircleByColumn(computerCirclesColumnTwo)
@@ -375,46 +376,64 @@ function makeComputerPlay() {
     let x6 = getClickableCircleByColumn(computerCirclesColumnSix)
     let x7 = getClickableCircleByColumn(computerCirclesColumnSeven)
 
-    if (checkConnectThree().length === 0){
+    let possibleConnectFourCircle = checkConnectThree()
+
+    if (possibleConnectFourCircle.length === 0) {
         let RandomInteger = Math.floor(Math.random() * 7)
 
-    if (!checkConnectFour()) {
-        switch (RandomInteger) {
-            case 0:
-                makeChipFall(0, "purpleChip", "computer")
-                break;
-            case 1:
-                makeChipFall(1, "purpleChip", "computer")
-                break;
-            case 2:
-                makeChipFall(2, "purpleChip", "computer")
-                break;
-            case 3:
-                makeChipFall(3, "purpleChip", "computer")
-                break;
-            case 4:
-                makeChipFall(4, "purpleChip", "computer")
-                break;
-            case 5:
-                makeChipFall(5, "purpleChip", "computer")
-                break;
-            case 6:
-                makeChipFall(6, "purpleChip", "computer")
-                break;
+        if (!checkConnectFour()) {
+            switch (RandomInteger) {
+                case 0:
+                    makeChipFall(0, "purpleChip", "computer")
+                    break;
+                case 1:
+                    makeChipFall(1, "purpleChip", "computer")
+                    break;
+                case 2:
+                    makeChipFall(2, "purpleChip", "computer")
+                    break;
+                case 3:
+                    makeChipFall(3, "purpleChip", "computer")
+                    break;
+                case 4:
+                    makeChipFall(4, "purpleChip", "computer")
+                    break;
+                case 5:
+                    makeChipFall(5, "purpleChip", "computer")
+                    break;
+                case 6:
+                    makeChipFall(6, "purpleChip", "computer")
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
+
         }
-        document.getElementById("computer").classList.remove("player-1")
-        document.getElementById("player").classList.add("player-2")
-        checkConnectFour()
-    }
     } else {
-        let RandomInteger = Math.floor(Math.random() * checkConnectThree().length)
+        console.log("hey")
+        if (possibleConnectFourCircle.className.includes("column1")) {
+            makeChipFall(0, "purpleChip", "computer")
+        } else if (possibleConnectFourCircle.className.includes("column2")) {
+            makeChipFall(1, "purpleChip", "computer")
+        } else if (possibleConnectFourCircle.className.includes("column3")) {
+            makeChipFall(2, "purpleChip", "computer")
+        } else if (possibleConnectFourCircle.className.includes("column4")) {
+            makeChipFall(3, "purpleChip", "computer")
+        } else if (possibleConnectFourCircle.className.includes("column5")) {
+            makeChipFall(4, "purpleChip", "computer")
+        } else if (possibleConnectFourCircle.className.includes("column6")) {
+            makeChipFall(5, "purpleChip", "computer")
+        } else if (possibleConnectFourCircle.className.includes("column7")) {
+            makeChipFall(6, "purpleChip", "computer")
+        }
 
     }
+    document.getElementById("computer").classList.remove("player-1")
+    document.getElementById("player").classList.add("player-2")
+    checkConnectFour()
 
-        
+
 }
 
 function setClickEventListenerComputer(x) {
@@ -424,7 +443,7 @@ function setClickEventListenerComputer(x) {
                 makeChipFall(whichColumnIndex(e.target), "greenChip", "computer")
                 document.getElementById("player").classList.remove("player-2")
                 document.getElementById("computer").classList.add("player-1")
-                checkConnectFour()
+                // checkConnectFour()
                 timeoutID = window.setTimeout(makeComputerPlay, 1000)
                 return 0
 
@@ -457,8 +476,8 @@ function setClickableCirclesComputer() {
 // MAKE COMPUTER A BIT MOR CLEVER //
 
 function checkConnectThree() {
-    let possibleConnectFourArray = [checkConnectThreeByColumn(circlesColumnOne), checkConnectThreeByColumn(circlesColumnTwo), checkConnectThreeByColumn(circlesColumnThree), checkConnectThreeByColumn(circlesColumnFour), checkConnectThreeByColumn(circlesColumnFive), checkConnectThreeByColumn(circlesColumnSix), checkConnectThreeByColumn(circlesColumnSeven),
-        checkConnectThreeByRow(circlesRowOne), checkConnectThreeByRow(circlesRowTwo), checkConnectThreeByRow(circlesRowThree), checkConnectThreeByRow(circlesRowFour), checkConnectThreeByRow(circlesRowFive), checkConnectThreeByRow(circlesRowSix), checkConnectThreeByRow(circlesRowSeven), checkConnectThreeByDiagonal()
+    let possibleConnectFourArray = [checkConnectThreeByColumn(computerCirclesColumnOne), checkConnectThreeByColumn(computerCirclesColumnTwo), checkConnectThreeByColumn(computerCirclesColumnThree), checkConnectThreeByColumn(computerCirclesColumnFour), checkConnectThreeByColumn(computerCirclesColumnFive), checkConnectThreeByColumn(computerCirclesColumnSix), checkConnectThreeByColumn(computerCirclesColumnSeven),
+        checkConnectThreeByRow(computerCirclesRowOne), checkConnectThreeByRow(computerCirclesRowTwo), checkConnectThreeByRow(computerCirclesRowThree), checkConnectThreeByRow(computerCirclesRowFour), checkConnectThreeByRow(computerCirclesRowFive), checkConnectThreeByRow(computerCirclesRowSix), checkConnectThreeByRow(computerCirclesRowSeven), checkConnectThreeByDiagonal()
     ]
     for (let i = 0; i < possibleConnectFourArray.length; i++) {
         if (possibleConnectFourArray[i] === "") {
@@ -466,14 +485,21 @@ function checkConnectThree() {
             i--
         }
     }
-    return possibleConnectFourArray
+
+    let RandomInteger = Math.floor(Math.random() * possibleConnectFourArray.length)
+
+    console.log(possibleConnectFourArray.length === 0 ? "" : possibleConnectFourArray[RandomInteger])
+    return possibleConnectFourArray.length === 0 ? "" : possibleConnectFourArray[RandomInteger]
 }
 
 function checkConnectThreeByColumn(column) {
     let result = ""
     for (let i = 6; i > 2; i--) {
         if ((column[i].className.includes("purpleChip") && column[i - 1].className.includes("purpleChip") && column[i - 2].className.includes("purpleChip")) || (column[i].className.includes("greenChip") && column[i - 1].className.includes("greenChip") && column[i - 2].className.includes("greenChip"))) {
-            result = column[i - 3]
+            if (!column[i - 3].className.includes("purpleChip") && !column[i - 3].className.includes("greenChip")) {
+                result = column[i - 3]
+            }
+
         }
     }
     return result
@@ -514,29 +540,29 @@ function checkConnectThreeByRow(row) {
 
 function checkConnectThreeByDiagonal() {
     let result = ""
-    let clickableCircleArray = [getClickableCircleByColumn(circlesColumnOne), getClickableCircleByColumn(circlesColumnTwo), getClickableCircleByColumn(circlesColumnThree), getClickableCircleByColumn(circlesColumnFour), getClickableCircleByColumn(circlesColumnFive), getClickableCircleByColumn(circlesColumnSix), getClickableCircleByColumn(circlesColumnSeven)]
+    let clickableCircleArray = [getClickableCircleByColumn(computerCirclesColumnOne), getClickableCircleByColumn(computerCirclesColumnTwo), getClickableCircleByColumn(computerCirclesColumnThree), getClickableCircleByColumn(computerCirclesColumnFour), getClickableCircleByColumn(computerCirclesColumnFive), getClickableCircleByColumn(computerCirclesColumnSix), getClickableCircleByColumn(computerCirclesColumnSeven)]
     for (let j = 0; j < 29; j += 7) {
         for (let i = 0; i < 5; i++) {
-            if ((allCircles[i + j].className.includes("purpleChip") && allCircles[i + j + 8].className.includes("purpleChip") && allCircles[i + j + 16].className.includes("purpleChip")) || (allCircles[i + j].className.includes("greenChip") && allCircles[i + j + 8].className.includes("greenChip") && allCircles[i + j + 16].className.includes("greenChip"))) {
+            if ((computerAllCircles[i + j].className.includes("purpleChip") && computerAllCircles[i + j + 8].className.includes("purpleChip") && computerAllCircles[i + j + 16].className.includes("purpleChip")) || (computerAllCircles[i + j].className.includes("greenChip") && computerAllCircles[i + j + 8].className.includes("greenChip") && computerAllCircles[i + j + 16].className.includes("greenChip"))) {
                 /* verifier que le result est cliquable
                 C'est à dire qu'il est un inclus dans le 
                 clickableCircleArray */
-                if (clickableCircleArray.includes(allCircles[i + j - 8])) {
-                    result = allCircles[i + j - 8]
-                } else if (clickableCircleArray.includes(allCircles[i + j + 24])) {
-                    result = allCircles[i + j + 24]
+                if (clickableCircleArray.includes(computerAllCircles[i + j - 8])) {
+                    result = computerAllCircles[i + j - 8]
+                } else if (clickableCircleArray.includes(computerAllCircles[i + j + 24])) {
+                    result = computerAllCircles[i + j + 24]
                 }
             }
         }
     }
     for (let j = 0; j < 29; j += 7) {
         for (let i = 6; i > 1; i--) {
-            if ((allCircles[i + j].className.includes("purpleChip") && allCircles[i + j + 6].className.includes("purpleChip") && allCircles[i + j + 12].className.includes("purpleChip")) || (allCircles[i + j].className.includes("greenChip") && allCircles[i + j + 6].className.includes("greenChip") && allCircles[i + j + 12].className.includes("greenChip"))) {
+            if ((computerAllCircles[i + j].className.includes("purpleChip") && computerAllCircles[i + j + 6].className.includes("purpleChip") && computerAllCircles[i + j + 12].className.includes("purpleChip")) || (computerAllCircles[i + j].className.includes("greenChip") && computerAllCircles[i + j + 6].className.includes("greenChip") && computerAllCircles[i + j + 12].className.includes("greenChip"))) {
 
-                if (clickableCircleArray.includes(allCircles[i + j - 6])) {
-                    result = allCircles[i + j - 6]
-                } else if (clickableCircleArray.includes(allCircles[i + j + 18])) {
-                    result = allCircles[i + j + 18]
+                if (clickableCircleArray.includes(computerAllCircles[i + j - 6])) {
+                    result = computerAllCircles[i + j - 6]
+                } else if (clickableCircleArray.includes(computerAllCircles[i + j + 18])) {
+                    result = computerAllCircles[i + j + 18]
                 }
             }
         }
