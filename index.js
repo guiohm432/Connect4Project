@@ -1,8 +1,8 @@
 function main() {
     setInterval(setClickableCircles, 500)
     setInterval(setClickableCirclesComputer, 1000)
-    setInterval(playerTurnText, 500)
-    setInterval(makeWinningPlayerBlink, 500)
+    // setInterval(playerTurnText, 500)
+    // setInterval(makeWinningPlayerBlink, 900)
 }
 
 
@@ -20,9 +20,11 @@ computerButton.onclick = (e) => {
     let firstPlayer = Math.floor(Math.random() * 2)
     if (firstPlayer) {
         document.getElementById("computer").classList.add("player-1")
+        document.querySelector(".player-turn.computer").textContent = `It's Computer's Turn`
         timeoutID2 = window.setTimeout(makeComputerPlay, 1000)
     } else {
         document.getElementById("player").classList.add("player-2")
+        document.querySelector(".player-turn.computer").textContent = `It's Player's Turn`
     }
 }
 
@@ -32,25 +34,27 @@ twoPlayersButton.onclick = (e) => {
     let firstPlayer = Math.floor(Math.random() * 2)
     if (firstPlayer) {
         document.getElementById("player1").classList.add("player-1")
+        document.querySelector(".player-turn").textContent = `It's player 1's Turn`
     } else {
         document.getElementById("player2").classList.add("player-2")
+        document.querySelector(".player-turn").textContent = `It's player 2's Turn`
     }
 
 }
 
 
 function playerTurnText() {
-    if (!checkConnectFour()) {
-        if (document.getElementById("player1").className.includes("player-1")) {
-            document.querySelector(".player-turn").textContent = `It's player 1's Turn`
-        } else if (document.getElementById("player2").className.includes("player-2")) {
-            document.querySelector(".player-turn").textContent = `It's player 2's Turn`
-        } else if (document.getElementById("computer").className.includes("player-1")) {
-            document.querySelector(".player-turn.computer").textContent = `It's Computer's Turn`
-        } else {
-            document.querySelector(".player-turn.computer").textContent = `It's Player's Turn`
-        }
+
+    if (document.getElementById("player1").className.includes("player-1")) {
+        document.querySelector(".player-turn").textContent = `It's player 1's Turn`
+    } else if (document.getElementById("player2").className.includes("player-2")) {
+        document.querySelector(".player-turn").textContent = `It's player 2's Turn`
+    } else if (document.getElementById("computer").className.includes("player-1")) {
+        document.querySelector(".player-turn.computer").textContent = `It's Computer's Turn`
+    } else {
+        document.querySelector(".player-turn.computer").textContent = `It's Player's Turn`
     }
+
 
 }
 
@@ -101,12 +105,14 @@ function setClickEventListener(x) {
                 makeChipFall(whichColumnIndex(e.target), "purpleChip")
                 document.getElementById("player1").classList.remove("player-1")
                 document.getElementById("player2").classList.add("player-2")
+                playerTurnText()
                 // checkConnectFour()
                 return 0
             } else if (document.getElementById("player2").className.includes("player-2") && !e.target.className.includes("purpleChip")) {
                 makeChipFall(whichColumnIndex(e.target), "greenChip")
                 document.getElementById("player2").classList.remove("player-2")
                 document.getElementById("player1").classList.add("player-1")
+                playerTurnText()
                 // checkConnectFour()
 
                 return 0
@@ -146,6 +152,7 @@ function makeChipFall(columnIndex, chipColor, gameMode) {
         if (!circles[0 + columnIndex].className.includes("greenChip") && !circles[0 + columnIndex].className.includes("purpleChip")) {
             circles[0 + columnIndex].classList.add(`${chipColor}`)
         } else {
+            makeWinningPlayerBlink()
             clickSound.play()
         }
     }, 100)
@@ -156,6 +163,7 @@ function makeChipFall(columnIndex, chipColor, gameMode) {
             circles[0 + columnIndex].classList.remove(`${chipColor}`);
             circles[7 + columnIndex].classList.add(`${chipColor}`)
         } else {
+            makeWinningPlayerBlink()
             clickSound.play()
         }
     }, 200)
@@ -164,6 +172,7 @@ function makeChipFall(columnIndex, chipColor, gameMode) {
             circles[7 + columnIndex].classList.remove(`${chipColor}`);
             circles[14 + columnIndex].classList.add(`${chipColor}`)
         } else {
+            makeWinningPlayerBlink()
             clickSound.play()
         }
     }, 300)
@@ -172,6 +181,7 @@ function makeChipFall(columnIndex, chipColor, gameMode) {
             circles[14 + columnIndex].classList.remove(`${chipColor}`);
             circles[21 + columnIndex].classList.add(`${chipColor}`)
         } else {
+            makeWinningPlayerBlink()
             clickSound.play()
         }
     }, 400)
@@ -180,6 +190,7 @@ function makeChipFall(columnIndex, chipColor, gameMode) {
             circles[21 + columnIndex].classList.remove(`${chipColor}`);
             circles[28 + columnIndex].classList.add(`${chipColor}`)
         } else {
+            makeWinningPlayerBlink()
             clickSound.play()
         }
     }, 500)
@@ -188,6 +199,7 @@ function makeChipFall(columnIndex, chipColor, gameMode) {
             circles[28 + columnIndex].classList.remove(`${chipColor}`);
             circles[35 + columnIndex].classList.add(`${chipColor}`)
         } else {
+            makeWinningPlayerBlink()
             clickSound.play()
         }
     }, 600)
@@ -195,8 +207,10 @@ function makeChipFall(columnIndex, chipColor, gameMode) {
         if (!circles[42 + columnIndex].className.includes("greenChip") && !circles[42 + columnIndex].className.includes("purpleChip")) {
             circles[35 + columnIndex].classList.remove(`${chipColor}`);
             circles[42 + columnIndex].classList.add(`${chipColor}`)
+            makeWinningPlayerBlink()
             clickSound.play()
         } else {
+            makeWinningPlayerBlink()
             clickSound.play()
         }
     }, 700)
@@ -313,8 +327,11 @@ let applause = document.getElementsByTagName("audio")[1];
 let boo = document.getElementsByTagName("audio")[2];
 
 function makeWinningPlayerBlink() {
+    checkConnectFour()
+    console.log("1")
 
     if (checkConnectFour()) {
+        console.log("2")
         if (document.getElementById("player1").className.includes("player-1")) {
             document.getElementById("player2").classList.add("blinking")
             document.getElementById("player2").classList.add("winning-background")
@@ -452,6 +469,7 @@ function makeComputerPlay() {
         }
         document.getElementById("computer").classList.remove("player-1")
         document.getElementById("player").classList.add("player-2")
+        playerTurnText()
         checkConnectFour()
     }
 
@@ -466,6 +484,7 @@ function setClickEventListenerComputer(x) {
                 makeChipFall(whichColumnIndex(e.target), "greenChip", "computer")
                 document.getElementById("player").classList.remove("player-2")
                 document.getElementById("computer").classList.add("player-1")
+                playerTurnText()
                 // checkConnectFour()
                 timeoutID = window.setTimeout(makeComputerPlay, 1000)
                 return 0
