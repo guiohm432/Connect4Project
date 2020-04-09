@@ -1,15 +1,12 @@
 function main() {
     setInterval(setClickableCircles, 500)
     setInterval(setClickableCirclesComputer, 1000)
-    // setInterval(playerTurnText, 500)
-    // setInterval(makeWinningPlayerBlink, 900)
 }
-
 
 main()
 
 
-//--------------------------------//
+//Main Menu//
 
 computerButton = document.getElementById("computer-game-selection")
 twoPlayersButton = document.getElementById("two-players-game-selection")
@@ -41,6 +38,8 @@ twoPlayersButton.onclick = (e) => {
     }
 
 }
+
+//Two Players Mode//
 
 
 function playerTurnText() {
@@ -78,7 +77,6 @@ const allCircles = document.querySelectorAll(".item")
 
 function getClickableCircleByColumn(column) {
     let clickableCircle = ""
-
     if (!column[6].className.includes("purpleChip") && !column[6].className.includes("greenChip")) {
         return column[6]
     } else if (column[0].className.includes("purpleChip") || column[0].className.includes("greenChip")) {
@@ -95,8 +93,6 @@ function getClickableCircleByColumn(column) {
 
     return clickableCircle
 }
-
-let clickSound = document.getElementsByTagName("audio")[0];
 
 function setClickEventListener(x) {
     if (x != 0) {
@@ -140,6 +136,7 @@ function whichColumnIndex(circle) {
 }
 
 let circles = 0
+let clickSound = document.getElementsByTagName("audio")[0]
 
 function makeChipFall(columnIndex, chipColor, gameMode) {
 
@@ -327,11 +324,9 @@ let applause = document.getElementsByTagName("audio")[1];
 let boo = document.getElementsByTagName("audio")[2];
 
 function makeWinningPlayerBlink() {
-    checkConnectFour()
-    console.log("1")
 
+    checkConnectFour()
     if (checkConnectFour()) {
-        console.log("2")
         if (document.getElementById("player1").className.includes("player-1")) {
             document.getElementById("player2").classList.add("blinking")
             document.getElementById("player2").classList.add("winning-background")
@@ -397,6 +392,7 @@ function makeComputerPlay() {
 
     let possibleConnectFourCircle = checkConnectThree()
     let possibleConnectThreeCircle = checkConnectTwo()
+
     if (!checkConnectFour()) {
         if (possibleConnectFourCircle.length === 0 && possibleConnectThreeCircle.length === 0) {
             let RandomInteger = Math.floor(Math.random() * 7)
@@ -429,6 +425,7 @@ function makeComputerPlay() {
 
 
             }
+
         } else if (possibleConnectFourCircle.length != 0) {
             console.log("three")
             if (possibleConnectFourCircle.className.includes("column1")) {
@@ -446,7 +443,6 @@ function makeComputerPlay() {
             } else if (possibleConnectFourCircle.className.includes("column7")) {
                 makeChipFall(6, "purpleChip", "computer")
             }
-
 
         } else if (possibleConnectThreeCircle.length != 0) {
             console.log("two")
@@ -485,7 +481,6 @@ function setClickEventListenerComputer(x) {
                 document.getElementById("player").classList.remove("player-2")
                 document.getElementById("computer").classList.add("player-1")
                 playerTurnText()
-                // checkConnectFour()
                 timeoutID = window.setTimeout(makeComputerPlay, 1000)
                 return 0
 
@@ -533,7 +528,6 @@ function checkConnectThree() {
     if (possibleConnectFourArray.length === 0) {
         return ""
     } else if (purpleResult != "") {
-        console.log("purpleMarker")
         return purpleResult
     } else {
         let RandomInteger = Math.floor(Math.random() * possibleConnectFourArray.length)
@@ -581,7 +575,7 @@ function checkConnectThreeByRow(row) {
                 }
             } else {
                 /* Since the computer makes random choices in the final possibleConnectFourArray,
-                 i'll push only one value here even in the case of multiple possibilities, 
+                 i'll return only one value here even in the case of multiple possibilities, 
                  because in this case computer looses anyway */
 
                 if (!row[i - 1].className.includes("greenChip") && !row[i - 1].className.includes("purpleChip") && clickableCircleArray.includes(row[i - 1])) {
@@ -696,7 +690,7 @@ function checkConnectTwoByRow(row) {
                 }
             } else {
                 /* Since the computer makes random choices in the final possibleConnectFourArray,
-                 i'll push only one value here even in the case of multiple possibilities, 
+                 i'll return only one value here even in the case of multiple possibilities, 
                  because in this case computer looses anyway */
 
                 if (!row[i - 1].className.includes("greenChip") && !row[i - 1].className.includes("purpleChip") && clickableCircleArray.includes(row[i - 1])) {
