@@ -2,11 +2,11 @@ function main() {
     setInterval(setClickableCircles, 500)
     setInterval(setClickableCirclesComputer, 1000)
     setInterval(playerTurnText, 500)
-    setInterval(makeWinningPlayerBlink, 1000)
+    setInterval(makeWinningPlayerBlink, 500)
 }
 
 
-// main()
+main()
 
 
 //--------------------------------//
@@ -310,31 +310,35 @@ function checkConnectFour() {
 }
 
 let applause = document.getElementsByTagName("audio")[1];
+let boo = document.getElementsByTagName("audio")[2];
 
 function makeWinningPlayerBlink() {
 
     if (checkConnectFour()) {
-        applause.play()
         if (document.getElementById("player1").className.includes("player-1")) {
             document.getElementById("player2").classList.add("blinking")
             document.getElementById("player2").classList.add("winning-background")
             document.getElementById("player1").classList.remove("player-1")
             document.querySelector(".player-turn").textContent = `Player 2 Wins`
+            applause.play()
         } else if (document.getElementById("player2").className.includes("player-2")) {
             document.getElementById("player1").classList.add("blinking")
             document.getElementById("player1").classList.add("winning-background")
             document.getElementById("player2").classList.remove("player-2")
             document.querySelector(".player-turn").textContent = `Player 1 Wins`
+            applause.play()
         } else if (document.getElementById("computer").className.includes("player-1")) {
             document.getElementById("player").classList.add("blinking")
             document.getElementById("player").classList.add("winning-background")
             document.getElementById("computer").classList.remove("player-1")
             document.querySelector(".player-turn.computer").textContent = `Player Wins`
+            applause.play()
         } else if (document.getElementById("player").className.includes("player-2")) {
             document.getElementById("computer").classList.add("blinking")
             document.getElementById("computer").classList.add("winning-background")
             document.getElementById("player").classList.remove("player-2")
             document.querySelector(".player-turn.computer").textContent = `Computer Wins`
+            boo.play()
         }
     }
 
@@ -376,11 +380,10 @@ function makeComputerPlay() {
 
     let possibleConnectFourCircle = checkConnectThree()
     let possibleConnectThreeCircle = checkConnectTwo()
+    if (!checkConnectFour()) {
+        if (possibleConnectFourCircle.length === 0 && possibleConnectThreeCircle.length === 0) {
+            let RandomInteger = Math.floor(Math.random() * 7)
 
-    if (possibleConnectFourCircle.length === 0 && possibleConnectThreeCircle.length === 0) {
-        let RandomInteger = Math.floor(Math.random() * 7)
-
-        if (!checkConnectFour()) {
             switch (RandomInteger) {
                 case 0:
                     makeChipFall(0, "purpleChip", "computer")
@@ -406,53 +409,55 @@ function makeComputerPlay() {
 
                 default:
                     break;
+
+
+            }
+        } else if (possibleConnectFourCircle.length != 0) {
+            console.log("three")
+            if (possibleConnectFourCircle.className.includes("column1")) {
+                makeChipFall(0, "purpleChip", "computer")
+            } else if (possibleConnectFourCircle.className.includes("column2")) {
+                makeChipFall(1, "purpleChip", "computer")
+            } else if (possibleConnectFourCircle.className.includes("column3")) {
+                makeChipFall(2, "purpleChip", "computer")
+            } else if (possibleConnectFourCircle.className.includes("column4")) {
+                makeChipFall(3, "purpleChip", "computer")
+            } else if (possibleConnectFourCircle.className.includes("column5")) {
+                makeChipFall(4, "purpleChip", "computer")
+            } else if (possibleConnectFourCircle.className.includes("column6")) {
+                makeChipFall(5, "purpleChip", "computer")
+            } else if (possibleConnectFourCircle.className.includes("column7")) {
+                makeChipFall(6, "purpleChip", "computer")
+            }
+
+
+        } else if (possibleConnectThreeCircle.length != 0) {
+            console.log("two")
+            if (possibleConnectThreeCircle.className.includes("column1")) {
+                makeChipFall(0, "purpleChip", "computer")
+            } else if (possibleConnectThreeCircle.className.includes("column2")) {
+                makeChipFall(1, "purpleChip", "computer")
+            } else if (possibleConnectThreeCircle.className.includes("column3")) {
+                makeChipFall(2, "purpleChip", "computer")
+            } else if (possibleConnectThreeCircle.className.includes("column4")) {
+                makeChipFall(3, "purpleChip", "computer")
+            } else if (possibleConnectThreeCircle.className.includes("column5")) {
+                makeChipFall(4, "purpleChip", "computer")
+            } else if (possibleConnectThreeCircle.className.includes("column6")) {
+                makeChipFall(5, "purpleChip", "computer")
+            } else if (possibleConnectThreeCircle.className.includes("column7")) {
+                makeChipFall(6, "purpleChip", "computer")
             }
 
         }
-    } else if (possibleConnectFourCircle.length != 0) {
-        console.log("three")
-        if (possibleConnectFourCircle.className.includes("column1")) {
-            makeChipFall(0, "purpleChip", "computer")
-        } else if (possibleConnectFourCircle.className.includes("column2")) {
-            makeChipFall(1, "purpleChip", "computer")
-        } else if (possibleConnectFourCircle.className.includes("column3")) {
-            makeChipFall(2, "purpleChip", "computer")
-        } else if (possibleConnectFourCircle.className.includes("column4")) {
-            makeChipFall(3, "purpleChip", "computer")
-        } else if (possibleConnectFourCircle.className.includes("column5")) {
-            makeChipFall(4, "purpleChip", "computer")
-        } else if (possibleConnectFourCircle.className.includes("column6")) {
-            makeChipFall(5, "purpleChip", "computer")
-        } else if (possibleConnectFourCircle.className.includes("column7")) {
-            makeChipFall(6, "purpleChip", "computer")
-        }
-
-
-    } else if (possibleConnectThreeCircle.length != 0) {
-        console.log("two")
-        if (possibleConnectThreeCircle.className.includes("column1")) {
-            makeChipFall(0, "purpleChip", "computer")
-        } else if (possibleConnectThreeCircle.className.includes("column2")) {
-            makeChipFall(1, "purpleChip", "computer")
-        } else if (possibleConnectThreeCircle.className.includes("column3")) {
-            makeChipFall(2, "purpleChip", "computer")
-        } else if (possibleConnectThreeCircle.className.includes("column4")) {
-            makeChipFall(3, "purpleChip", "computer")
-        } else if (possibleConnectThreeCircle.className.includes("column5")) {
-            makeChipFall(4, "purpleChip", "computer")
-        } else if (possibleConnectThreeCircle.className.includes("column6")) {
-            makeChipFall(5, "purpleChip", "computer")
-        } else if (possibleConnectThreeCircle.className.includes("column7")) {
-            makeChipFall(6, "purpleChip", "computer")
-        }
-
+        document.getElementById("computer").classList.remove("player-1")
+        document.getElementById("player").classList.add("player-2")
+        checkConnectFour()
     }
-    document.getElementById("computer").classList.remove("player-1")
-    document.getElementById("player").classList.add("player-2")
-    checkConnectFour()
 
 
 }
+
 
 function setClickEventListenerComputer(x) {
     if (x != 0) {
