@@ -1,7 +1,8 @@
 function main() {
     setInterval(setClickableCircles, 500)
     setInterval(setClickableCirclesComputer, 1000)
-    setInterval(checkConnectFour, 900)
+    setInterval(playerTurnText, 500)
+    setInterval(makeWinningPlayerBlink, 500)
 }
 
 
@@ -19,11 +20,9 @@ computerButton.onclick = (e) => {
     let firstPlayer = Math.floor(Math.random() * 2)
     if (firstPlayer) {
         document.getElementById("computer").classList.add("player-1")
-        document.querySelector(".player-turn.computer").textContent = `It's Computer's Turn`
         timeoutID2 = window.setTimeout(makeComputerPlay, 1000)
     } else {
         document.getElementById("player").classList.add("player-2")
-        document.querySelector(".player-turn.computer").textContent = `It's Player's Turn`
     }
 }
 
@@ -33,29 +32,27 @@ twoPlayersButton.onclick = (e) => {
     let firstPlayer = Math.floor(Math.random() * 2)
     if (firstPlayer) {
         document.getElementById("player1").classList.add("player-1")
-        document.querySelector(".player-turn").textContent = `It's player 1's Turn`
     } else {
         document.getElementById("player2").classList.add("player-2")
-        document.querySelector(".player-turn").textContent = `It's player 2's Turn`
     }
 
 }
 
 
 function playerTurnText() {
-
-    if (document.getElementById("player1").className.includes("player-1")) {
-        document.querySelector(".player-turn").textContent = `It's player 1's Turn`
-    } else if (document.getElementById("player2").className.includes("player-2")) {
-        document.querySelector(".player-turn").textContent = `It's player 2's Turn`
-    } else if (document.getElementById("computer").className.includes("player-1")) {
-        document.querySelector(".player-turn.computer").textContent = `It's Computer's Turn`
-    } else {
-        document.querySelector(".player-turn.computer").textContent = `It's Player's Turn`
+    if (!checkConnectFour()) {
+        if (document.getElementById("player1").className.includes("player-1")) {
+            document.querySelector(".player-turn").textContent = `It's player 1's Turn`
+        } else if (document.getElementById("player2").className.includes("player-2")) {
+            document.querySelector(".player-turn").textContent = `It's player 2's Turn`
+        } else if (document.getElementById("computer").className.includes("player-1")) {
+            document.querySelector(".player-turn.computer").textContent = `It's Computer's Turn`
+        } else {
+            document.querySelector(".player-turn.computer").textContent = `It's Player's Turn`
+        }
     }
+
 }
-
-
 
 const circlesColumnOne = document.querySelectorAll("div.grid.two-players :nth-child(7n+1)")
 const circlesColumnTwo = document.querySelectorAll("div.grid.two-players :nth-child(7n+2)")
@@ -104,14 +101,12 @@ function setClickEventListener(x) {
                 makeChipFall(whichColumnIndex(e.target), "purpleChip")
                 document.getElementById("player1").classList.remove("player-1")
                 document.getElementById("player2").classList.add("player-2")
-                playerTurnText()
                 // checkConnectFour()
                 return 0
             } else if (document.getElementById("player2").className.includes("player-2") && !e.target.className.includes("purpleChip")) {
                 makeChipFall(whichColumnIndex(e.target), "greenChip")
                 document.getElementById("player2").classList.remove("player-2")
                 document.getElementById("player1").classList.add("player-1")
-                playerTurnText()
                 // checkConnectFour()
 
                 return 0
@@ -303,13 +298,10 @@ function checkConnectFourByDiagonal() {
 function checkConnectFour() {
 
     if (checkConnectFourByColumn(circlesColumnOne) || checkConnectFourByColumn(circlesColumnTwo) || checkConnectFourByColumn(circlesColumnThree) || checkConnectFourByColumn(circlesColumnFour) || checkConnectFourByColumn(circlesColumnFive) || checkConnectFourByColumn(circlesColumnSix) || checkConnectFourByColumn(circlesColumnSeven) || checkConnectFourByColumn(computerCirclesColumnOne) || checkConnectFourByColumn(computerCirclesColumnTwo) || checkConnectFourByColumn(computerCirclesColumnThree) || checkConnectFourByColumn(computerCirclesColumnFour) || checkConnectFourByColumn(computerCirclesColumnFive) || checkConnectFourByColumn(computerCirclesColumnSix) || checkConnectFourByColumn(computerCirclesColumnSeven)) {
-        makeWinningPlayerBlink()
         return true
     } else if (checkConnectFourByRow(circlesRowOne) || checkConnectFourByRow(circlesRowTwo) || checkConnectFourByRow(circlesRowThree) || checkConnectFourByRow(circlesRowFour) || checkConnectFourByRow(circlesRowFive) || checkConnectFourByRow(circlesRowSix) || checkConnectFourByRow(circlesRowSeven) || checkConnectFourByRow(computerCirclesRowOne) || checkConnectFourByRow(computerCirclesRowTwo) || checkConnectFourByRow(computerCirclesRowThree) || checkConnectFourByRow(computerCirclesRowFour) || checkConnectFourByRow(computerCirclesRowFive) || checkConnectFourByRow(computerCirclesRowSix) || checkConnectFourByRow(computerCirclesRowSeven)) {
-        makeWinningPlayerBlink()
         return true
     } else if (checkConnectFourByDiagonal()) {
-        makeWinningPlayerBlink()
         return true
     } else {
         return false
@@ -322,31 +314,32 @@ let boo = document.getElementsByTagName("audio")[2];
 
 function makeWinningPlayerBlink() {
 
-    if (document.getElementById("player1").className.includes("player-1")) {
-        document.getElementById("player2").classList.add("blinking")
-        document.getElementById("player2").classList.add("winning-background")
-        document.getElementById("player1").classList.remove("player-1")
-        document.querySelector(".player-turn").textContent = `Player 2 Wins`
-        applause.play()
-    } else if (document.getElementById("player2").className.includes("player-2")) {
-        document.getElementById("player1").classList.add("blinking")
-        document.getElementById("player1").classList.add("winning-background")
-        document.getElementById("player2").classList.remove("player-2")
-        document.querySelector(".player-turn").textContent = `Player 1 Wins`
-        applause.play()
-    } else if (document.getElementById("computer").className.includes("player-1")) {
-        document.getElementById("player").classList.add("blinking")
-        document.getElementById("player").classList.add("winning-background")
-        document.getElementById("computer").classList.remove("player-1")
-        document.querySelector(".player-turn.computer").textContent = `Player Wins`
-        applause.play()
-    } else if (document.getElementById("player").className.includes("player-2")) {
-        document.getElementById("computer").classList.add("blinking")
-        document.getElementById("computer").classList.add("winning-background")
-        document.getElementById("player").classList.remove("player-2")
-        document.querySelector(".player-turn.computer").textContent = `Computer Wins`
-        boo.play()
-
+    if (checkConnectFour()) {
+        if (document.getElementById("player1").className.includes("player-1")) {
+            document.getElementById("player2").classList.add("blinking")
+            document.getElementById("player2").classList.add("winning-background")
+            document.getElementById("player1").classList.remove("player-1")
+            document.querySelector(".player-turn").textContent = `Player 2 Wins`
+            applause.play()
+        } else if (document.getElementById("player2").className.includes("player-2")) {
+            document.getElementById("player1").classList.add("blinking")
+            document.getElementById("player1").classList.add("winning-background")
+            document.getElementById("player2").classList.remove("player-2")
+            document.querySelector(".player-turn").textContent = `Player 1 Wins`
+            applause.play()
+        } else if (document.getElementById("computer").className.includes("player-1")) {
+            document.getElementById("player").classList.add("blinking")
+            document.getElementById("player").classList.add("winning-background")
+            document.getElementById("computer").classList.remove("player-1")
+            document.querySelector(".player-turn.computer").textContent = `Player Wins`
+            applause.play()
+        } else if (document.getElementById("player").className.includes("player-2")) {
+            document.getElementById("computer").classList.add("blinking")
+            document.getElementById("computer").classList.add("winning-background")
+            document.getElementById("player").classList.remove("player-2")
+            document.querySelector(".player-turn.computer").textContent = `Computer Wins`
+            boo.play()
+        }
     }
 
 }
@@ -459,7 +452,6 @@ function makeComputerPlay() {
         }
         document.getElementById("computer").classList.remove("player-1")
         document.getElementById("player").classList.add("player-2")
-        playerTurnText()
         checkConnectFour()
     }
 
@@ -474,7 +466,6 @@ function setClickEventListenerComputer(x) {
                 makeChipFall(whichColumnIndex(e.target), "greenChip", "computer")
                 document.getElementById("player").classList.remove("player-2")
                 document.getElementById("computer").classList.add("player-1")
-                playerTurnText()
                 // checkConnectFour()
                 timeoutID = window.setTimeout(makeComputerPlay, 1000)
                 return 0
