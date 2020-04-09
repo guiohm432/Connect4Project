@@ -1,7 +1,6 @@
 function main() {
     setInterval(setClickableCircles, 500)
     setInterval(setClickableCirclesComputer, 1000)
-    setInterval(checkConnectFour, 900)
 }
 
 
