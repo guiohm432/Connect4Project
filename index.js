@@ -76,7 +76,6 @@ const circlesRowSeven = document.querySelectorAll(".two-players .row7")
 const allCircles = document.querySelectorAll(".item")
 
 function getClickableCircleByColumn(column) {
-    let clickableCircle = ""
     if (!column[6].className.includes("purpleChip") && !column[6].className.includes("greenChip")) {
         return column[6]
     } else if (column[0].className.includes("purpleChip") || column[0].className.includes("greenChip")) {
@@ -85,13 +84,10 @@ function getClickableCircleByColumn(column) {
         for (let i = 1; i < 7; i++) {
 
             if (column[i].className.includes("purpleChip") || column[i].className.includes("greenChip")) {
-                clickableCircle = column[i - 1]
-                break;
+                return column[i - 1]
             }
         }
     }
-
-    return clickableCircle
 }
 
 function setClickEventListener(x) {
